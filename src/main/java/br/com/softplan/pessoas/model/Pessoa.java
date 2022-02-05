@@ -30,20 +30,25 @@ public class Pessoa{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "nome", length = 45)
+    @Column(name = "nome", length = 45, nullable = false)
     private String nome;
 
+    @Column(name = "sexo", nullable = false)
     private Sexo sexo;
 
+    @Column(name = "email", nullable = true)
     private String email;
 
+    @Column(name = "data_nascimento", nullable = false)
     private Date dataNascimento;
 
+    @Column(name = "naturalidade", nullable = false)
     private String naturalidade;
-    
+
+    @Column(name = "nacionalidade", nullable = false)    
     private String nacionalidade;
     
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String cpf;
 
     @CreatedDate

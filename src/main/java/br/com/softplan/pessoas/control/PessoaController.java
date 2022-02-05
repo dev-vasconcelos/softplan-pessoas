@@ -93,21 +93,4 @@ public class PessoaController {
 		}
 	}
     
-    @DeleteMapping(path = "", produces = "application/json")
-	public ResponseEntity<?> deleteByID(@RequestBody Pessoa entity) {
-		try {
-
-            Long id = entity.getId();
-
-            if (id.equals(null)) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(entity);
-            }
-
-			pessoaService.delete(id);
-			return ResponseEntity.ok(this.findAll());
-		} catch (InternalError | Exception ex) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
-		}
-	}
-
 }

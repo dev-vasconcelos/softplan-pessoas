@@ -25,7 +25,7 @@ public class PessoaService {
         
         pessoa.setNome(pessoaRequest.getNome());
         pessoa.setSexo(pessoaRequest.getSexo());
-        pessoa.setEmail(pessoaRequest.getNaturalidade());
+        pessoa.setEmail(pessoaRequest.getEmail());
         pessoa.setDataNascimento(pessoaRequest.getDataNascimento());
         pessoa.setNaturalidade(pessoaRequest.getNaturalidade());
         pessoa.setNacionalidade(pessoaRequest.getNacionalidade());
