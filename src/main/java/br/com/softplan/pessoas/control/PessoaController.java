@@ -20,13 +20,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaController {
     @Autowired
-    private PessoaService pessoaService;
+    private PessoaService service;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -36,7 +37,7 @@ public class PessoaController {
         try {
             Pessoa pessoaRequest = modelMapper.map(pessoaDTO, Pessoa.class);
 
-		    Pessoa pessoa = pessoaService.save(pessoaRequest);
+		    Pessoa pessoa = service.save(pessoaRequest);
 
 		    PessoaDTO pessoaResponse = modelMapper.map(pessoa, PessoaDTO.class);
 
@@ -50,7 +51,7 @@ public class PessoaController {
     public ResponseEntity<?> update(@RequestBody PessoaDTO pessoaDTO, @PathVariable Long id) {
         try {
             Pessoa pessoaRequest = modelMapper.map(pessoaDTO, Pessoa.class);
-            Pessoa pessoa = pessoaService.update(id, pessoaRequest);
+            Pessoa pessoa = service.update(id, pessoaRequest);
             PessoaDTO pessoaResponse = modelMapper.map(pessoa, PessoaDTO.class);
 
     		return ResponseEntity.ok().body(pessoaResponse);
@@ -59,14 +60,14 @@ public class PessoaController {
         }
     }
 
-    @GetMapping(path = "", produces = "application/json")
-    public ResponseEntity<?> findAll() {
-        try {
-            
-            List<PessoaDTO> collection = pessoaService.findAll().stream().map(pessoa -> modelMapper.map(pessoa, PessoaDTO.class))
+    @GetMapping(path = "", produces = "application/json", params = {"page","size","sortBy"})
+    public ResponseEntity<?> findAll(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, @RequestParam(defaultValue = "id") String sortBy) {
+        try {           
+            List<Pessoa> findResult = service.findAll(page, size, sortBy);
+            List<PessoaDTO> collection = findResult.stream().map(book -> modelMapper.map(book, PessoaDTO.class))
                 .collect(Collectors.toList());
 
-            return ResponseEntity.ok(collection); 
+            return ResponseEntity.ok(collection);
         } catch (InternalError | Exception ex) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
 		}
@@ -75,7 +76,7 @@ public class PessoaController {
     @GetMapping(path = "/{id}", produces = "application/json")
 	public ResponseEntity<?> findById(@PathVariable("id") long id) {
 		try {
-			Pessoa pessoa = pessoaService.findById(id);
+			Pessoa pessoa = service.findById(id);
 		    PessoaDTO pessoaResponse = modelMapper.map(pessoa, PessoaDTO.class);
 		    return ResponseEntity.ok().body(pessoaResponse);
 		} catch (InternalError | Exception ex) {
@@ -86,8 +87,8 @@ public class PessoaController {
     @DeleteMapping(path = "/{id}", produces = "application/json")
 	public ResponseEntity<?> deleteByID(@PathVariable("id") long id) {
 		try {
-			pessoaService.delete(id);
-		    return ResponseEntity.ok(this.findAll());
+			service.delete(id);
+		    return ResponseEntity.ok(this.findAll(1, 10, "id"));
 		} catch (InternalError | Exception ex) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
 		}

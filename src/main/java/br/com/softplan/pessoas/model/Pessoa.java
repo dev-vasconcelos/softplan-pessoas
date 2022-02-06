@@ -17,13 +17,14 @@ import org.springframework.data.annotation.LastModifiedDate;
 import br.com.softplan.pessoas.common.Sexo;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "tb_pessoa")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
