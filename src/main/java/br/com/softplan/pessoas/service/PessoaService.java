@@ -26,7 +26,7 @@ public class PessoaService {
     }
     public Pessoa update(long id, Pessoa pessoaRequest) {
         Pessoa pessoa = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Pessoa não encontrada"));
+                .orElseThrow(() -> new ResourceNotFoundException("Pessoa com id " + id + " não encontrada"));
         
         pessoa.setNome(pessoaRequest.getNome());
         pessoa.setSexo(pessoaRequest.getSexo());
@@ -41,7 +41,7 @@ public class PessoaService {
         
     public void delete(long id) {
         Pessoa pessoa = repository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Pessoa não encontrada"));
+            .orElseThrow(() -> new ResourceNotFoundException("Pessoa com id " + id + " não encontrada"));
             
             repository.delete(pessoa);    
         }       
@@ -51,7 +51,7 @@ public class PessoaService {
         if(result.isPresent()) {
             return result.get();
         }else {
-                throw new ResourceNotFoundException("Pessoa não encontrada");
+                throw new ResourceNotFoundException("Pessoa com id "+ id +" não encontrada");
         }
     }
 
