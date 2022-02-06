@@ -88,7 +88,7 @@ public class PessoaController {
 	public ResponseEntity<?> deleteByID(@PathVariable("id") long id) {
 		try {
 			service.delete(id);
-		    return ResponseEntity.ok(this.findAll(1, 10, "id"));
+		    return this.findAll(0, 10, "id");
 		} catch (InternalError | Exception ex) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
 		}
