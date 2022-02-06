@@ -9,15 +9,15 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import br.com.softplan.pessoas.interfaces.CpfValidator;
+import br.com.softplan.pessoas.interfaces.DataNascimentoValidator;
 
 @Documented
-@Constraint(validatedBy = CpfValidator.class)
+@Constraint(validatedBy = DataNascimentoValidator.class)
 @Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Cpf {
+public @interface DataNascimento {
 
-    String message() default "CPF Inválido";
+    String message() default "Data de nascimento inválida";
 
     Class<?>[] groups() default {};
 

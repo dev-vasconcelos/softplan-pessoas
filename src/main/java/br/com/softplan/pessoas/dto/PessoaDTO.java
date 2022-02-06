@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import br.com.softplan.pessoas.common.Cpf;
+import br.com.softplan.pessoas.common.DataNascimento;
 import br.com.softplan.pessoas.common.Genero;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class PessoaDTO {
     private String email;
     
     @NotNull(message = "Data de nascimento não pode ser nulo")
+    @DataNascimento
     private Date dataNascimento;
     
     private String naturalidade;
