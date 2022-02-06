@@ -24,10 +24,11 @@ public class PessoaService {
     public Pessoa save(Pessoa pessoaRequest) {
         return repository.save(pessoaRequest);
     }
+
     public Pessoa update(long id, Pessoa pessoaRequest) {
         Pessoa pessoa = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pessoa com id " + id + " não encontrada"));
-        
+
         pessoa.setNome(pessoaRequest.getNome());
         pessoa.setSexo(pessoaRequest.getSexo());
         pessoa.setEmail(pessoaRequest.getEmail());
@@ -38,20 +39,20 @@ public class PessoaService {
 
         return repository.save(pessoa);
     }
-        
+
     public void delete(long id) {
         Pessoa pessoa = repository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Pessoa com id " + id + " não encontrada"));
-            
-            repository.delete(pessoa);    
-        }       
-    
+                .orElseThrow(() -> new ResourceNotFoundException("Pessoa com id " + id + " não encontrada"));
+
+        repository.delete(pessoa);
+    }
+
     public Pessoa findById(long id) {
         Optional<Pessoa> result = repository.findById(id);
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             return result.get();
-        }else {
-                throw new ResourceNotFoundException("Pessoa com id "+ id +" não encontrada");
+        } else {
+            throw new ResourceNotFoundException("Pessoa com id " + id + " não encontrada");
         }
     }
 

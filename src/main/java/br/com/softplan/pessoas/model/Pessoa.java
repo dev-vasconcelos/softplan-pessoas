@@ -49,9 +49,9 @@ public class Pessoa {
     @Column(name = "naturalidade", nullable = false)
     private String naturalidade;
 
-    @Column(name = "nacionalidade", nullable = false)    
+    @Column(name = "nacionalidade", nullable = false)
     private String nacionalidade;
-    
+
     @Column(nullable = false, unique = true)
     private String cpf;
 
@@ -75,6 +75,5 @@ public class Pessoa {
     private void onUpdate() {
         this.lastUpdateDate = new Date();
     }
-
 
 }
