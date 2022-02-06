@@ -68,9 +68,10 @@ public class PessoaController {
         }
     }
 
-    @GetMapping(path = "", produces = "application/json", params = { "page", "size", "sortBy" })
-    public ResponseEntity<?> findAll(@RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "10") Integer size, @RequestParam(defaultValue = "id") String sortBy) {
+    @GetMapping(path = "", produces = "application/json")
+    public ResponseEntity<?> findAll(@RequestParam(defaultValue = "0", required = false) Integer page,
+            @RequestParam(defaultValue = "10", required = false) Integer size,
+            @RequestParam(defaultValue = "id", required = false) String sortBy) {
         try {
             List<Pessoa> findResult = service.findAll(page, size, sortBy);
             List<PessoaDTO> collection = findResult.stream().map(book -> modelMapper.map(book, PessoaDTO.class))
