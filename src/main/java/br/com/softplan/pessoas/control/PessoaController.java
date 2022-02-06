@@ -1,12 +1,16 @@
 package br.com.softplan.pessoas.control;
+
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 
 import br.com.softplan.pessoas.dto.PessoaDTO;
 import br.com.softplan.pessoas.model.Pessoa;
@@ -24,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping({"api/pessoa"})
+@RequestMapping({ "api/pessoa" })
 public class PessoaController {
     @Autowired
     private PessoaService service;
@@ -33,16 +37,18 @@ public class PessoaController {
     private ModelMapper modelMapper;
 
     @PostMapping(path = "", produces = "application/json")
-    public ResponseEntity<?> save(@RequestBody PessoaDTO pessoaDTO) {
+    public ResponseEntity<?> save(@Valid @RequestBody PessoaDTO pessoaDTO) {
         try {
             Pessoa pessoaRequest = modelMapper.map(pessoaDTO, Pessoa.class);
 
-		    Pessoa pessoa = service.save(pessoaRequest);
+            Pessoa pessoa = service.save(pessoaRequest);
 
-		    PessoaDTO pessoaResponse = modelMapper.map(pessoa, PessoaDTO.class);
+            PessoaDTO pessoaResponse = modelMapper.map(pessoa, PessoaDTO.class);
 
-		    return new ResponseEntity<PessoaDTO>(pessoaResponse, HttpStatus.CREATED);
-        } catch(InternalError | Exception ex) {
+            return new ResponseEntity<PessoaDTO>(pessoaResponse, HttpStatus.CREATED);
+        } catch (BadRequest br) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(br.getMessage());
+        } catch (InternalError | Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
         }
     }
@@ -54,44 +60,51 @@ public class PessoaController {
             Pessoa pessoa = service.update(id, pessoaRequest);
             PessoaDTO pessoaResponse = modelMapper.map(pessoa, PessoaDTO.class);
 
-    		return ResponseEntity.ok().body(pessoaResponse);
-        } catch(InternalError | Exception ex) {
+            return ResponseEntity.ok().body(pessoaResponse);
+        } catch (BadRequest br) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(br.getMessage());
+        } catch (InternalError | Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
         }
     }
 
-    @GetMapping(path = "", produces = "application/json", params = {"page","size","sortBy"})
-    public ResponseEntity<?> findAll(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, @RequestParam(defaultValue = "id") String sortBy) {
-        try {           
+    @GetMapping(path = "", produces = "application/json", params = { "page", "size", "sortBy" })
+    public ResponseEntity<?> findAll(@RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size, @RequestParam(defaultValue = "id") String sortBy) {
+        try {
             List<Pessoa> findResult = service.findAll(page, size, sortBy);
             List<PessoaDTO> collection = findResult.stream().map(book -> modelMapper.map(book, PessoaDTO.class))
-                .collect(Collectors.toList());
+                    .collect(Collectors.toList());
 
             return ResponseEntity.ok(collection);
         } catch (InternalError | Exception ex) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
-		}
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+        }
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")
-	public ResponseEntity<?> findById(@PathVariable("id") long id) {
-		try {
-			Pessoa pessoa = service.findById(id);
-		    PessoaDTO pessoaResponse = modelMapper.map(pessoa, PessoaDTO.class);
-		    return ResponseEntity.ok().body(pessoaResponse);
-		} catch (InternalError | Exception ex) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
-		}
-	}
+    public ResponseEntity<?> findById(@PathVariable("id") long id) {
+        try {
+            Pessoa pessoa = service.findById(id);
+            PessoaDTO pessoaResponse = modelMapper.map(pessoa, PessoaDTO.class);
+            return ResponseEntity.ok().body(pessoaResponse);
+        } catch (BadRequest br) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(br.getMessage());
+        } catch (InternalError | Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+        }
+    }
 
     @DeleteMapping(path = "/{id}", produces = "application/json")
-	public ResponseEntity<?> deleteByID(@PathVariable("id") long id) {
-		try {
-			service.delete(id);
-		    return this.findAll(0, 10, "id");
-		} catch (InternalError | Exception ex) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
-		}
-	}
-    
+    public ResponseEntity<?> deleteByID(@PathVariable("id") long id) {
+        try {
+            service.delete(id);
+            return this.findAll(0, 10, "id");
+        } catch (BadRequest br) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(br.getMessage());
+        } catch (InternalError | Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+        }
+    }
+
 }

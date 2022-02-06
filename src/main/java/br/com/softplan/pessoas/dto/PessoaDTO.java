@@ -2,6 +2,7 @@ package br.com.softplan.pessoas.dto;
 
 import java.util.Date;
 
+import br.com.softplan.pessoas.common.Cpf;
 import br.com.softplan.pessoas.common.Sexo;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,8 @@ public class PessoaDTO {
     private Date dataNascimento;
     private String naturalidade;
     private String nacionalidade;
+
+    @Cpf
     private String cpf;
 
 }
