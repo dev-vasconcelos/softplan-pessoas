@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import br.com.softplan.pessoas.common.Sexo;
+import br.com.softplan.pessoas.common.Genero;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,8 +37,8 @@ public class Pessoa {
     @Column(name = "nome", length = 45, nullable = false)
     private String nome;
 
-    @Column(name = "sexo", nullable = false)
-    private Sexo sexo;
+    @Column(name = "genero", nullable = false)
+    private Genero genero;
 
     @Column(name = "email", nullable = true)
     private String email;
@@ -46,10 +46,10 @@ public class Pessoa {
     @Column(name = "data_nascimento", nullable = false)
     private Date dataNascimento;
 
-    @Column(name = "naturalidade", nullable = false)
+    @Column(name = "naturalidade", nullable = true)
     private String naturalidade;
 
-    @Column(name = "nacionalidade", nullable = false)
+    @Column(name = "nacionalidade", nullable = true)
     private String nacionalidade;
 
     @Column(nullable = false, unique = true)

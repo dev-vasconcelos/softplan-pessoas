@@ -1,6 +1,6 @@
 package br.com.softplan.pessoas.common;
 
-public enum Sexo {
+public enum Genero {
     MASCULINO,
     FEMININO,
     NAO_BINARIO,

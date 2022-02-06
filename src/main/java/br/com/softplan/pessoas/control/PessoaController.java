@@ -54,7 +54,7 @@ public class PessoaController {
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
-    public ResponseEntity<?> update(@RequestBody PessoaDTO pessoaDTO, @PathVariable Long id) {
+    public ResponseEntity<?> update(@Valid @RequestBody PessoaDTO pessoaDTO, @PathVariable Long id) {
         try {
             Pessoa pessoaRequest = modelMapper.map(pessoaDTO, Pessoa.class);
             Pessoa pessoa = service.update(id, pessoaRequest);

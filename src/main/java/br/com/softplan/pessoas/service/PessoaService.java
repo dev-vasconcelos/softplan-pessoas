@@ -30,7 +30,7 @@ public class PessoaService {
                 .orElseThrow(() -> new ResourceNotFoundException("Pessoa com id " + id + " não encontrada"));
 
         pessoa.setNome(pessoaRequest.getNome());
-        pessoa.setSexo(pessoaRequest.getSexo());
+        pessoa.setGenero(pessoaRequest.getGenero());
         pessoa.setEmail(pessoaRequest.getEmail());
         pessoa.setDataNascimento(pessoaRequest.getDataNascimento());
         pessoa.setNaturalidade(pessoaRequest.getNaturalidade());
