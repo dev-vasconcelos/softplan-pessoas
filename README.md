@@ -15,6 +15,7 @@ Tecnologia back-end: Java Spring Boot
 | localhost:3000/ | front-end |
 | localhost:8080/source | links dos repositórios |
 
-dockerhub: https://hub.docker.com/r/pedrobipede/softplan-pessoas 
+dockerhub com front-end: https://hub.docker.com/r/pedrobipede/softplan-pessoas 
+dockerhub sem front-end: 
 
 frontend: https://github.com/dev-vasconcelos/softplan-pessoas-front
