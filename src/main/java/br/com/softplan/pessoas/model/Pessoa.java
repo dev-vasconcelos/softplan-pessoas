@@ -31,7 +31,7 @@ public class Pessoa extends BaseModel {
     @Column(name = "genero", nullable = false)
     private Genero genero;
 
-    @Column(name = "email", nullable = true)
+    @Column(name = "email", nullable = true, unique = true)
     private String email;
 
     @Column(name = "data_nascimento", nullable = false)
