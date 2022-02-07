@@ -10,7 +10,7 @@ public class DocConfig {
     
     @Bean
     public GroupedOpenApi allOpenApi() {
-        String packagesToscan[] = { "br.com.softplan.pessoas.control" };
+        String packagesToscan[] = {"br.com.softplan.pessoas.control", "br.com.softplan.pessoas.v1.control","br.com.softplan.pessoas.v2.control"};
         return GroupedOpenApi.builder().group("Todas as versões").packagesToScan(packagesToscan)
         .build();
     }
