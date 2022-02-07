@@ -25,6 +25,9 @@ public class Endereco extends BaseModel {
     private String rua;
 
     @Column(nullable = false)
+    private String complemento;
+
+    @Column(nullable = false)
     private int numero;
     
     @Column(nullable = false)
