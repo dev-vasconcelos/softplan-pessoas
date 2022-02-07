@@ -6,7 +6,7 @@ Contendo paginação, validação, versionamento de API, testes, /source, autent
 A principio utilizei MySQL durante o desenvolvimento, também para garantir a correnta modelagem do banco de dados.
 Para deploy no docker, a API utiliza um H2 temporário para não deixar o container tão pesado.
 
-Tecnologia front-end: NextJS  
+Tecnologia front-end: NextJS    
 Tecnologia back-end: Java Spring Boot 
 
 | URL | NOME |
@@ -15,7 +15,18 @@ Tecnologia back-end: Java Spring Boot
 | localhost:3000/ | front-end |
 | localhost:8080/source | links dos repositórios |
 
-dockerhub com front-end: https://hub.docker.com/r/pedrobipede/softplan-pessoas 
-dockerhub sem front-end: 
+## Como rodar
+É preciso expor as portas da aplicação
+Front-end: porta 3000   
+API: porta 8080  
+```
+docker run -t -p 3000:3000 -p 8080:8080 pedrobipede/softplan-pessoas:latest
+```
 
-frontend: https://github.com/dev-vasconcelos/softplan-pessoas-front
+## Repositórios ##
+dockerhub com front-end: https://hub.docker.com/repository/docker/pedrobipede/softplan-pessoas  
+dockerhub sem front-end: https://hub.docker.com/repository/docker/pedrobipede/softplan-pessoas-api   
+código frontend: https://github.com/dev-vasconcelos/softplan-pessoas-front  
+código back-end: https://hub.docker.com/repository/docker/pedrobipede/softplan-pessoas-api
+
+
