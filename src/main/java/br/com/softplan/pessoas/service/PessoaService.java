@@ -28,7 +28,8 @@ public class PessoaService {
     public Pessoa update(long id, Pessoa pessoaRequest) {
         Pessoa pessoa = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Pessoa com id " + id + " não encontrada"));
-
+        
+        
         pessoa.setNome(pessoaRequest.getNome());
         pessoa.setGenero(pessoaRequest.getGenero());
         pessoa.setEmail(pessoaRequest.getEmail());
@@ -36,7 +37,8 @@ public class PessoaService {
         pessoa.setNaturalidade(pessoaRequest.getNaturalidade());
         pessoa.setNacionalidade(pessoaRequest.getNacionalidade());
         pessoa.setCpf(pessoaRequest.getCpf());
-
+        pessoa.setEndereco(pessoaRequest.getEndereco());
+        
         return repository.save(pessoa);
     }
 

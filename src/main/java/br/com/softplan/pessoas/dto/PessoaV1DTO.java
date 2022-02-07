@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PessoaDTO {
+public class PessoaV1DTO {
     
     private Long id;
 
