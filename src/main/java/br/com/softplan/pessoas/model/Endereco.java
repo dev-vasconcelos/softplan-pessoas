@@ -19,6 +19,9 @@ import lombok.Setter;
 public class Endereco extends BaseModel {    
 
     @Column(nullable = false)
+    private String cep;
+
+    @Column(nullable = false)
     private String rua;
 
     @Column(nullable = false)
