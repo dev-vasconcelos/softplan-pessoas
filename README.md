@@ -6,6 +6,9 @@ Contendo paginação, validação, versionamento de API, testes, /source, autent
 A principio utilizei MySQL durante o desenvolvimento, também para garantir a correnta modelagem do banco de dados.
 Para deploy no docker, a API utiliza um H2 temporário para não deixar o container tão pesado.
 
+Tecnologia front-end: NextJS
+Tecnologia back-end: Java Spring Boot 
+
 | URL | NOME |
 | ------ | ------ |
 | localhost:8080/swagger | swagger |
