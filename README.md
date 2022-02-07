@@ -15,12 +15,19 @@ Tecnologia back-end: Java Spring Boot
 | localhost:3000/ | front-end |
 | localhost:8080/source | links dos repositórios |
 
-## Como rodar
+## Como rodar - Front e API juntos
 É preciso expor as portas da aplicação
 Front-end: porta 3000   
 API: porta 8080  
 ```
 docker run -t -p 3000:3000 -p 8080:8080 pedrobipede/softplan-pessoas:latest
+```
+
+## Como rodar - Apenas API
+É preciso expor as portas da aplicação  
+API: porta 8080  
+```
+docker run -t -p 3000:3000 -p 8080:8080 pedrobipede/softplan-pessoas-api:latest
 ```
 
 ## Repositórios ##
