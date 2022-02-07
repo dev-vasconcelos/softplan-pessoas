@@ -10,3 +10,5 @@ Para deploy no docker, a API utiliza um H2 temporário para não deixar o contai
 | ------ | ------ |
 | localhost:8080/swagger | swagger |
 
+dockerhub: https://hub.docker.com/r/pedrobipede/softplan-pessoas
+frontend: https://github.com/dev-vasconcelos/softplan-pessoas-front
